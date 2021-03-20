@@ -5,7 +5,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
   public Path route;
-  private Waypoint[] myPathThroughLife;
+  private Waypoint[] myPath;
   public int coinWorth;
   public float health;
   public float speed = .25f;
@@ -15,8 +15,8 @@ public class Enemy : MonoBehaviour
 
   void Awake()
   {
-    myPathThroughLife = route.path;
-    transform.position = myPathThroughLife[index].transform.position;
+    myPath = route.path;
+    transform.position = myPath[index].transform.position;
     Recalculate();
   }
 
@@ -24,7 +24,7 @@ public class Enemy : MonoBehaviour
   {
     if (!stop)
     {
-      if ((transform.position - myPathThroughLife[index + 1].transform.position).magnitude < .1f)
+      if ((transform.position - myPath[index + 1].transform.position).magnitude < .1f)
       {
         index = index + 1;
         Recalculate();
@@ -39,10 +39,9 @@ public class Enemy : MonoBehaviour
 
   void Recalculate()
   {
-    if (index < myPathThroughLife.Length -1)
+    if (index < myPath.Length -1)
     {
-      nextWaypoint = (myPathThroughLife[index + 1].transform.position - myPathThroughLife[index].transform.position).normalized;
-
+      nextWaypoint = (myPath[index + 1].transform.position - myPath[index].transform.position).normalized;
     }
     else
     {
