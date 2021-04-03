@@ -1,20 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
   public Path route;
   private Waypoint[] myPath;
   public int coinWorth;
-  public float health;
+  public float maxHealth;
+  private float health;
   public float speed = .25f;
   private int index = 0;
   private Vector3 nextWaypoint;
   private bool stop = false;
+  public Image healthBar;
 
   void Awake()
   {
+    health = maxHealth;
     myPath = route.path;
     transform.position = myPath[index].transform.position;
     Recalculate();
@@ -50,6 +54,7 @@ public class Enemy : MonoBehaviour
   }
   public void takeDamage(int damage){
     health -= damage;
+    healthBar.GetComponent<RectTransform>().sizeDelta = new Vector2(50 * (health / maxHealth), 10);
     if (health <= 0){
       Purse.coinPurse.addCoins(coinWorth);
       Destroy(this.gameObject);

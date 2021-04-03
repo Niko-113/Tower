@@ -11,6 +11,7 @@ public class Purse : MonoBehaviour
 
     void Start(){
         coinPurse = this;
+        coinText.text = "Coins: " + coins;
     }
 
     public void addCoins(int num){
