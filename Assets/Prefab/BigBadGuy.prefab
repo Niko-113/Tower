@@ -362,6 +362,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   route: {fileID: 0}
   coinWorth: 30
-  maxHealth: 5
+  maxHealth: 10
   speed: 0.25
   healthBar: {fileID: 8977193141031966280}
+  deathEvent:
+    m_PersistentCalls:
+      m_Calls: []
