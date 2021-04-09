@@ -63,7 +63,7 @@ public class Enemy : MonoBehaviour
 
       deathEvent.Invoke();
       deathEvent.RemoveAllListeners();
-      Purse.coinPurse.addCoins(coinWorth);
+      GameManager.master.addCoins(coinWorth);
       Destroy(this.gameObject);
     }
   }

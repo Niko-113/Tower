@@ -1,27 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager master;
+    public Text coinText;
+    public Text livesText;
+    public int coins = 0;
     public int lives;
 
-    public static GameManager master;
-    // Start is called before the first frame update
+
     void Start()
     {
         master = this;
+        coinText.text = "Coins: " + coins;
+        livesText.text = "Lives: " + lives;
     }
 
-    public void GoalHit(){
-        lives--;
-        if (lives <= 0) GameOver();
-    }
-
-    void GameOver()
+    public void addCoins(int num)
     {
-        // Tell scenemanager to do its thing
+        coins += num;
+        coinText.text = "Coins: " + coins;
     }
 
-    
+    public void goalHit()
+    {
+        lives--;
+        livesText.text = "Lives: " + lives;
+        if (lives <= 0) Debug.Log("placeholder"); // scenemanager go!
+    }
 }

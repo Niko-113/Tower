@@ -19,8 +19,8 @@ public class MouseHandler : MonoBehaviour
                 if(hit.collider.tag == "Enemy"){
                     hit.collider.gameObject.GetComponent<Enemy>().takeDamage(1);
                 }
-                if(hit.collider.tag == "TowerSpot" && Purse.coinPurse.coins >= 25){
-                    Purse.coinPurse.addCoins(-25);
+                if(hit.collider.tag == "TowerSpot" && GameManager.master.coins >= 25){
+                    GameManager.master.addCoins(-25);
                     hit.transform.gameObject.SetActive(false);
                     Instantiate(tower, hit.transform.position, Quaternion.identity, terrain.transform);
                 }
