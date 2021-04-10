@@ -14,60 +14,62 @@ public class HordeManager : MonoBehaviour
   IEnumerator Start()
   {
 
-    StartCoroutine("SpawnSmallEnemies");
-    StartCoroutine("SpawnBigEnemies");
+    StartCoroutine(SpawnEnemies(enemyWave.coolDownBetweenSmallWave, 0));
+    StartCoroutine(SpawnEnemies(enemyWave.coolDownBetweenLargeWave, 1));
 
     yield break;
 
   }
 
-  //pick our enemy to spawn
-  //spawn it
-  //wait
-  IEnumerator SpawnSmallEnemies()
+  IEnumerator SpawnEnemies(float cooldownBetweenWaves, int type)
   {
-    for (int i = 0; i < enemyWave.groupsOfEnemiesInWave.Length; i++)
+    for (int i = 0; i < enemyWave.groups.Length; i++)
     {
+      if (enemyWave.groups[i].enemyTypes.Length > type) StartCoroutine(SpawnEnemy(enemyWave.groups[i].enemyTypes[type]));
 
-      for (int j = 0; j < enemyWave.groupsOfEnemiesInWave[i].numberOfSmall; j++)
-      {
-        Enemy spawnedEnemy = Instantiate(enemyWave.groupsOfEnemiesInWave[i].smallEnemy).GetComponent<Enemy>();
-        spawnedEnemy.route = enemyPath;
-        yield return new WaitForSeconds(enemyWave.groupsOfEnemiesInWave[i].coolDownBetweenSmallEnemies);
 
-      }
-
-      yield return new WaitForSeconds(enemyWave.coolDownBetweenSmallWave); // cooldown between groups
+      yield return new WaitForSeconds(cooldownBetweenWaves); // cooldown between groups
     }
 
-    Debug.Log("done with small");
-
+    Debug.Log("done with wave");
   }
 
-  IEnumerator SpawnBigEnemies()
+  IEnumerator SpawnEnemy(Type type)
   {
-    yield return null;
+    for (int j = 0; j < type.number; j++)
+      {
+        Enemy spawnedEnemy = Instantiate(type.enemy).GetComponent<Enemy>();
+        spawnedEnemy.route = enemyPath;
+        yield return new WaitForSeconds(type.cooldown);
+
+      }
   }
-}
+
+
 
 
 
 [Serializable]
+public struct Type
+{
+  public GameObject enemy;
+  public int number;
+  public float cooldown;
+}
+
+[Serializable]
 public struct Group
 {
-  public GameObject smallEnemy;
-  public GameObject bigEnemy;
-  public int numberOfSmall;
-  public int numberOfLarge;
-  public float coolDownBetweenSmallEnemies;
-  public float coolDownBetweenLargeEnemies;
+  public Type[] enemyTypes;
 }
 
 [Serializable]
 public struct Wave
 {
-  public Group[] groupsOfEnemiesInWave;
+  public Group[] groups;
   public float coolDownBetweenSmallWave;
   public float coolDownBetweenLargeWave;
 }
 
+
+}
