@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
         master = this;
         coinText.text = "Coins: " + coins;
         livesText.text = "Lives: " + lives;
+        PauseGame();
     }
 
     public void addCoins(int num)
@@ -30,5 +31,13 @@ public class GameManager : MonoBehaviour
         lives--;
         livesText.text = "Lives: " + lives;
         if (lives <= 0) Debug.Log("placeholder"); // scenemanager go!
+    }
+
+    void PauseGame(){
+        Time.timeScale = 0;
+    }
+
+    public void UnpauseGame(){
+        Time.timeScale = 1;
     }
 }
