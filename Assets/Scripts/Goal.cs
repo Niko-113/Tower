@@ -9,7 +9,7 @@ public class Goal : MonoBehaviour
     {
         if (collider.GetComponent<Enemy>() != null)
         {
-            Destroy(collider);
+            Destroy(collider.gameObject);
             GameManager.master.goalHit();
         }
     }
