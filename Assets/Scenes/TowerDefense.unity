@@ -1475,11 +1475,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb1bb7c784bedfe629572a4a85dcf847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hordeManager: {fileID: 1718141279}
   coinText: {fileID: 878506011}
   livesText: {fileID: 921802884}
   restartButton: {fileID: 178339598}
   coins: 25
-  lives: 2
+  lives: 3
 --- !u!4 &938759583
 Transform:
   m_ObjectHideFlags: 0
@@ -2279,6 +2280,7 @@ MonoBehaviour:
     coolDownBetweenSmallWave: 8
     coolDownBetweenLargeWave: 15
   enemyPath: {fileID: 876615212}
+  finished: 0000
 --- !u!4 &1718141280
 Transform:
   m_ObjectHideFlags: 0
