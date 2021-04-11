@@ -9,11 +9,12 @@ public class HordeManager : MonoBehaviour
 
   public Wave enemyWave;
   public Path enemyPath;
+  public bool[] finished;
 
 
   IEnumerator Start()
   {
-
+    finished = new bool[2];
     StartCoroutine(SpawnEnemies(enemyWave.coolDownBetweenSmallWave, 0));
     StartCoroutine(SpawnEnemies(enemyWave.coolDownBetweenLargeWave, 1));
 
@@ -23,6 +24,7 @@ public class HordeManager : MonoBehaviour
 
   IEnumerator SpawnEnemies(float cooldownBetweenWaves, int type)
   {
+    finished[type] = new bool();
     for (int i = 0; i < enemyWave.groups.Length; i++)
     {
       if (enemyWave.groups[i].enemyTypes.Length > type) StartCoroutine(SpawnEnemy(enemyWave.groups[i].enemyTypes[type]));
@@ -31,7 +33,9 @@ public class HordeManager : MonoBehaviour
       yield return new WaitForSeconds(cooldownBetweenWaves); // cooldown between groups
     }
 
+    finished[type] = true;
     Debug.Log("done with wave");
+    GameManager.master.CheckForEnemies();
   }
 
   IEnumerator SpawnEnemy(Type type)

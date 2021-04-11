@@ -2265,20 +2265,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyWave:
     groups:
-    - smallEnemy: {fileID: 8830470595690722518, guid: 930fa4151fffb3d488d1d0b00b4691ab, type: 3}
-      bigEnemy: {fileID: 8830470595690722518, guid: 8e9ae34d3087e254ba136ebc1837315c, type: 3}
-      numberOfSmall: 3
-      numberOfLarge: 0
-      coolDownBetweenSmallEnemies: 1
-      coolDownBetweenLargeEnemies: 0
-    - smallEnemy: {fileID: 8830470595690722518, guid: 930fa4151fffb3d488d1d0b00b4691ab, type: 3}
-      bigEnemy: {fileID: 8830470595690722518, guid: 8e9ae34d3087e254ba136ebc1837315c, type: 3}
-      numberOfSmall: 3
-      numberOfLarge: 0
-      coolDownBetweenSmallEnemies: 0.3
-      coolDownBetweenLargeEnemies: 0
-    coolDownBetweenSmallWave: 3
-    coolDownBetweenLargeWave: 10
+    - enemyTypes:
+      - enemy: {fileID: 8830470595690722518, guid: 930fa4151fffb3d488d1d0b00b4691ab, type: 3}
+        number: 3
+        cooldown: 1
+    - enemyTypes:
+      - enemy: {fileID: 8830470595690722518, guid: 930fa4151fffb3d488d1d0b00b4691ab, type: 3}
+        number: 3
+        cooldown: 0.5
+      - enemy: {fileID: 8830470595690722518, guid: 8e9ae34d3087e254ba136ebc1837315c, type: 3}
+        number: 2
+        cooldown: 4
+    coolDownBetweenSmallWave: 8
+    coolDownBetweenLargeWave: 15
   enemyPath: {fileID: 876615212}
 --- !u!4 &1718141280
 Transform:

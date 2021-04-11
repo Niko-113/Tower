@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour
   private Waypoint[] myPath;
 
   public int coinWorth;
+  public Image healthBar;
   public float maxHealth;
   private float health;
   public float speed = .25f;
@@ -18,12 +19,12 @@ public class Enemy : MonoBehaviour
   private Vector3 nextWaypoint;
   private bool stop = false;
 
-  public Image healthBar;
-
+  public ParticleSystem particle;
   public UnityEvent deathEvent;
 
   void Start()
   {
+    particle = this.gameObject.GetComponent<ParticleSystem>();
     health = maxHealth;
     myPath = route.path;
     transform.position = myPath[index].transform.position;
@@ -60,11 +61,17 @@ public class Enemy : MonoBehaviour
     health -= damage;
     healthBar.GetComponent<RectTransform>().sizeDelta = new Vector2(50 * (health / maxHealth), 10);
     if (health <= 0){
-
+      particle.Play();
       deathEvent.Invoke();
       deathEvent.RemoveAllListeners();
       GameManager.master.addCoins(coinWorth);
-      Destroy(this.gameObject);
+      //health = maxHealth;
+       Destroy(this.gameObject);
     }
+  }
+
+  void OnDestroy()
+  {
+    GameManager.master.CheckForEnemies();
   }
 }

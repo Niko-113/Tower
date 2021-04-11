@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -7,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager master;
+    public HordeManager hordeManager;
     public Text coinText;
     public Text livesText;
     public Button restartButton;
@@ -48,6 +50,12 @@ public class GameManager : MonoBehaviour
     public void RestartGame()
     {
         SceneLoader.loader.ReloadScene();
+    }
+
+    public void CheckForEnemies()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        if (enemies.Length == 0 && !hordeManager.finished.Contains(false)) GameOver();
     }
 
     void GameOver()
